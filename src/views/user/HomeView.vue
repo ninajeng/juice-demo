@@ -29,8 +29,8 @@ export default {
       ],
       couponCode: 'anniversary',
       feedbacks: [],
-      onSalesId: ['-NtFaeJPVgdEndI-na1r', '-NtFkFeioTL8c8XzgbCm'],
-      onSalesData: [],
+      onSaleIds: ['-NtFaeJPVgdEndI-na1r', '-NtFkFeioTL8c8XzgbCm'],
+      onSaleData: [],
       swiperModules: [Navigation],
       swiperBreakpoints: {
         640: {
@@ -87,10 +87,10 @@ export default {
         this.toastShow('error', this.$errorMessage);
         return;
       }
-      this.onSalesId.forEach((id) => {
+      this.onSaleIds.forEach((id) => {
         const index = this.productList.findIndex((item) => item.id === id);
         if (index > -1) {
-          this.onSalesData.push(this.productList[index]);
+          this.onSaleData.push(this.productList[index]);
         }
       });
     },
@@ -138,7 +138,7 @@ export default {
     <div class="container h-100 d-flex align-items-center">
       <div class="text-gray-dark">
         <h2 class="mb-3">享受無盡的果汁時光</h2>
-        <p>新鮮、健康、24小時不打烊</p>
+        <p class="fs-5">新鮮、健康、24小時不打烊</p>
         <router-link :to="{name: 'products'}"
           class="btn btn-primary btn-lg">
           查看菜單<i class="bi bi-caret-right-fill ms-1"></i>
@@ -148,9 +148,13 @@ export default {
   </section>
 
   <section class="mt-5 container">
-    <h3 class="textTitle text-center mb-3">擁抱新鮮、天然、健康，從一杯果汁開始</h3>
-    <div class="position-relative mb-3 storeFeature"
-      style="background-size: cover;"
+    <h3 class="textTitle text-center mb-3 d-none d-md-block">
+      擁抱健康，從一杯<span class="mark">果汁</span>開始
+    </h3>
+    <h3 class="textTitle text-center mb-3 lh-base d-md-none">
+      擁抱健康<span class="d-block">從一杯<span class="mark">果汁</span>開始</span>
+    </h3>
+    <div class="position-relative mb-5 storeFeature d-none d-lg-block"
       :style="{'background-image': `url(${feature.imgUrl})`}"
                 v-for="(feature, key) in storeFeature" :key="'feature' + key">
       <div class="h-100 d-flex align-items-center"
@@ -160,11 +164,12 @@ export default {
         </div>
       </div>
     </div>
-    <div class="row gy-3 d-lg-none">
+    <div class="row gy-3 d-lg-none mb-5">
       <div class="col-12" v-for="(feature, key) in storeFeature" :key="'feature-m' + key">
         <div class="position-relative">
           <img :src="feature.imgUrl" :alt="feature.title" class="img-fluid">
-          <div class="position-absolute top-0 left-0 h-100 w-100 d-flex align-items-end justify-content-center">
+          <div class="position-absolute top-0 left-0 h-100 w-100
+            d-flex align-items-end justify-content-center">
             <h4 class="h6 text-white bg-dark bg-opacity-25 w-100 text-center mb-0 py-2">
               {{ feature.title }}
             </h4>
@@ -172,26 +177,19 @@ export default {
         </div>
       </div>
     </div>
-    <!-- <div class="mb-4 border border-primary bg-primary-subtle p-3 d-lg-none"
-      v-for="(feature, key) in storeFeature" :key="'feature-m' + key">
-      <h3 class="text-center h6">{{ feature.title }}</h3>
-      <div>
-        <img :src="feature.imgUrl" :alt="feature.title" class="img-fluid">
-      </div>
-    </div> -->
   </section>
 
-  <section class="container py-5">
-    <h3 class="mb-5 text-center">週年慶活動開跑</h3>
+  <section class="container py-5 mt-3">
+    <h3 class="textTitle text-center" style="margin-bottom: 2.5rem;">週年慶好禮</h3>
     <div class="border p-3 pt-4 text-center position-relative mb-5">
-      <p class="position-absolute top-0 start-50 translate-middle bg-white px-3">
-        <span class="productBadge secondaryOutlineBadge fs-5 me-2 mb-1">
-          活動一
+      <h4 class="position-absolute top-0 start-50 translate-middle bg-white px-3">
+        <span class="productBadge secondaryOutlineBadge d-inline-block me-2 my-1">
+          好禮一
         </span>
-      </p>
-      <h4 class="mt-4 fw-semibold">週年慶折扣碼優惠</h4>
-      <p>結帳使用週年慶折扣碼，享九五折優惠。</p>
-      <div class="d-flex justify-content-center mb-3">
+        <span class="d-inline-block my-1">折扣碼優惠</span>
+      </h4>
+      <p class="mt-4">結帳使用週年慶折扣碼，享九五折優惠。</p>
+      <div class="d-flex justify-content-center mb-3 flex-wrap">
         <p class="display-6 me-2 my-1 text-secondary">
           <i class="bi bi-ticket-perforated-fill fs-3"></i>
           {{ couponCode }}
@@ -206,20 +204,33 @@ export default {
       </div>
     </div>
     <div class="border pb-3 p-4 text-center position-relative">
-      <p class="position-absolute top-0 start-50 translate-middle bg-white px-3">
-        <span class="productBadge secondaryOutlineBadge fs-5 me-2 mb-1">
-          活動二
+      <h4 class="position-absolute top-0 start-50 translate-middle bg-white px-3">
+        <span class="productBadge secondaryOutlineBadge me-2">
+          好禮二
         </span>
-      </p>
-      <h4 class="my-4 fw-semibold">官網限定優惠</h4>
-      <div class="row justify-content-center align-items-center mb-lg-3 text-start"
-        :class="{'flex-row-reverse': key % 2 !== 0}"
-        v-for="(product, key) in onSalesData" :key="product.id">
-        <div class="col-md-5 mb-4 mb-md-0" :class=" key % 2 === 0 ? 'text-end': 'text-start'">
-          <img :src="product.imageUrl" :alt="product.title"
-            class="w-100" style="width: 400px;height: 400px; object-fit: cover;">
+        <span class="d-inline-block my-1">官網限定優惠</span>
+      </h4>
+      <div class="mt-3 row justify-content-center align-items-center mb-md-3 text-start"
+        :class="{'flex-row-reverse': key % 2 === 0}"
+        v-for="(product, key) in onSaleData" :key="product.id">
+        <div class="col-md-5 mb-4 mb-md-0"
+          :class=" key % 2 === 0 ? 'text-end': 'text-start'">
+          <div class="position-relative onSaleImage">
+            <img :src="product.imageUrl" :alt="product.title"
+              class="w-100" style="height: 250px; object-fit: cover;">
+            <div class="position-absolute top-0 left-0 w-100 h-100 bg-dark bg-opacity-50 text-white
+              d-flex justify-content-center align-items-center imageMask">
+              <div class="text-center">
+                <p><i class="bi bi-search display-4"></i></p>
+                <router-link :to="`products/${product.id}`"
+                  class="text-white text-decoration-none stretched-link">
+                  瀏覽產品
+                </router-link>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-md-5" :class="key === onSalesData.length - 1 ? 'mb-3' : 'mb-5'">
+        <div class="col-md-5 mb-md-0" :class="key === onSaleData.length - 1 ? 'mb-3' : 'mb-5'">
           <h4 class="mb-3">{{ product.title }}</h4>
           <p>{{ product.description }}</p>
           <p>
@@ -236,12 +247,13 @@ export default {
           </p>
           <router-link :to="`products/${product.id}`"
             class="btn btn-primary">
-            加入購物車<i class="bi bi-caret-right-fill ms-1"></i>
+            瀏覽產品<i class="bi bi-caret-right-fill ms-1"></i>
           </router-link>
         </div>
       </div>
     </div>
   </section>
+
   <section class="bg-light my-5 py-5" v-if="feedbacks.length">
     <div class="container">
       <h3 class="text-center mb-4">客戶好評回饋</h3>
@@ -268,7 +280,7 @@ export default {
     </div>
   </section>
   <section class="container mb-5 py-5">
-    <h3 class="text-center mb-5">常見問題</h3>
+    <h3 class="text-center mb-3">常見問題</h3>
     <div class="accordion" id="accordionExample">
       <div class="accordion-item" v-for="(FQA, key) in FQAs" :key="'FQA' + key">
         <h2 class="accordion-header">
@@ -291,14 +303,19 @@ export default {
 
 <style lang="scss" scoped>
 .banner{
-  height: calc(100vh - 60px);
+  height: calc(100vh - 30px);
   background-image: linear-gradient(to right, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0)),
                     url('@/assets/image/banner.jpg');
   background-size: cover;
   background-position: center center;
 }
+.mark{
+  background-image: linear-gradient(white 60%, lighten(#86b2c2, 20%) 40%);
+  padding: 0rem 0.25rem;
+  color: inherit;
+}
 .storeFeature{
-  height: 400px;
+  height: 500px;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center center;
@@ -324,5 +341,12 @@ export default {
     opacity: 1;
     transform: translateX(0px);
   }
+}
+.onSaleImage .imageMask {
+  opacity: 0;
+  transition: all 0.5s;
+}
+.onSaleImage:hover .imageMask{
+  opacity: 1;
 }
 </style>

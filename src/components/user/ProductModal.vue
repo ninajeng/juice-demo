@@ -74,10 +74,10 @@ export default {
               style="width: 100%; height: 300px;
               object-fit: cover; object-position: center;" v-if="productData.imageUrl">
             <button type="button"
-              class="btn-close position-absolute top-0 end-0 me-2 mt-2 bg-light bg-opacity-50"
+              class="btn-close position-absolute top-0 end-0 me-2 mt-2 bg-light bg-opacity-50 p-2"
               @click="hide"></button>
             <router-link :to="`/product/${this.productData.id}`" @click="hide"
-              class="btn btn-primary btn-sm position-absolute bottom-0 start-0 ms-2 mb-2">
+              class="btn btn-primary position-absolute bottom-0 start-0 ms-2 mb-2">
               查看更多<i class="bi bi-caret-right-fill"></i>
             </router-link>
           </div>
@@ -96,13 +96,13 @@ export default {
               <div class="border p-3 mb-3">
                 <p class="mb-3 text-muted">請選擇甜度*</p>
                 <p class="mb-0">
-                  <span class="me-2"
+                  <span class="me-2 mb-2 d-inline-block"
                     v-for="(option, key) in productData.custom.sugar.options"
                     :key="'sugar' + key">
                     <input type="radio" class="btn-check" :id="option"
                       name="sugar" :value="option"
                       v-model="userCustom.sugar" >
-                    <label class="btn btn-light btn-sm" :for="option">
+                    <label class="btn btn-light" :for="option">
                       {{ option }}
                     </label>
                   </span>
@@ -111,13 +111,13 @@ export default {
               <div class="border p-3 mb-3">
                 <p class="mb-3 text-muted">請選擇冷熱*</p>
                 <p class="mb-0">
-                  <span class="me-2"
+                  <span class="me-2 mb-2 d-inline-block"
                     v-for="(option, key) in productData.custom.ice.options"
                     :key="'ice' + key">
                     <input type="radio" class="btn-check" :id="option"
                       name="ice" :value="option"
                       v-model="userCustom.ice">
-                    <label class="btn btn-light btn-sm" :for="option">
+                    <label class="btn btn-light" :for="option">
                       {{ option }}
                     </label>
                   </span>
@@ -126,17 +126,17 @@ export default {
               <div class="border p-3 mb-3">
                 <p class="mb-3 text-muted">請選擇尺寸*</p>
                 <p class="mb-0">
-                  <span class="me-2"
+                  <span class="me-2 mb-2 d-inline-block"
                     v-for="(option, key) in productData.custom.size.options"
                     :key="'size' + key">
                     <input type="radio" class="btn-check" :id="option"
                       name="size" :value="option"
                       v-model="userCustom.size">
-                    <label class="btn btn-light btn-sm" :for="option" v-if="!key">
+                    <label class="btn btn-light" :for="option" v-if="!key">
                       {{ option }}
                       <span class="fs-7">{{ `(${productData.price}元)` }}</span>
                     </label>
-                    <label class="btn btn-light btn-sm" :for="option" v-else>
+                    <label class="btn btn-light" :for="option" v-else>
                       {{ option }}
                       <span class="fs-7">
                         {{ `(${productData.price + productData.custom.extras.addPrice}元)` }}
@@ -150,13 +150,13 @@ export default {
                   <span class="fs-7">{{ `(+${productData.custom.extras.addPrice}元/項)` }}</span>
                 </p>
                 <p class="mb-0">
-                  <span class="me-2"
+                  <span class="me-2 mb-2 d-inline-block"
                     v-for="(option, key) in productData.custom.extras.options"
                     :key="'extras' + key">
                     <input type="checkbox" class="btn-check" :id="option"
                       :value="option"
                       v-model="userCustom.extras">
-                    <label class="btn btn-light btn-sm" :for="option">
+                    <label class="btn btn-light" :for="option">
                       {{ option }}
                     </label>
                   </span>
